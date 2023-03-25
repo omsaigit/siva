@@ -1,0 +1,15 @@
+node('master')
+{
+    stage("ContinuousDownload")
+    {
+     git 'https://github.com/Devops042021/Test.git'
+    }
+    stage("ContinuousBuild")
+    {
+    sh 'mvn install'
+    }
+    stage("Deploy")
+    {
+    sh 'scp /var/lib/jenkins/workspace/pipeline/webapp/target/webapp.war devops@192.168.1.110:/var/lib/tomcat9/webapps/webapp.war'
+    }
+}
